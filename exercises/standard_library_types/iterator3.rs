@@ -24,6 +24,11 @@ pub struct NotDivisibleError {
 // evenly divisible by b.
 // Otherwise, it should return a suitable error.
 pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
+    if b == 0 {
+        Err(DivisionError::DivideByZero)
+    } else {
+        Ok(a / b)
+    }
 }
 
 #[cfg(test)]
@@ -40,7 +45,7 @@ mod tests {
     fn test_not_divisible() {
         assert_eq!(
             divide(81, 6),
-            Err(DivisionError::NotDivisible(NotDivisibleError{
+            Err(DivisionError::NotDivisible(NotDivisibleError {
                 dividend: 81,
                 divisor: 6
             }))
@@ -77,71 +82,8 @@ mod tests {
     */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Minor hint: In each of the two cases in the match in main, you can create x with either
 // a 'turbofish' or by hinting the type of x to the compiler. You may try both.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Major hint: Have a look at the Iter trait and at the explanation of its collect function.
 // Especially the part about Result is interesting.

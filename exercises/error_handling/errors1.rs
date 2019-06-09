@@ -6,18 +6,19 @@
 // this function to have.
 // Scroll down for hints!!!
 
-pub fn generate_nametag_text(name: String) -> Option<String> {
+pub fn generate_nametag_text(name: String) -> Result<String, String> {
     if name.len() > 0 {
-        Some(format!("Hi! My name is {}", name))
+        Ok(format!("Hi! My name is {}", name))
     } else {
         // Empty names aren't allowed.
-        None
+        Err("`name` was empty; it must be nonempty".into())
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::convert::Into;
 
     // This test passes initially if you comment out the 2nd test.
     // You'll need to update what this test expects when you change
@@ -26,7 +27,7 @@ mod tests {
     fn generates_nametag_text_for_a_nonempty_name() {
         assert_eq!(
             generate_nametag_text("Beyoncé".into()),
-            Some("Hi! My name is Beyoncé".into())
+            Ok("Hi! My name is Beyoncé".into())
         );
     }
 
@@ -39,31 +40,12 @@ mod tests {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // `Err` is one of the variants of `Result`, so what the 2nd test is saying
 // is that `generate_nametag_text` should return a `Result` instead of an
 // `Option`.
 
 // To make this change, you'll need to:
-// - update the return type in the function signature to be a Result<String, String> that
+// - update the return type in the function signature to be a Result that
 //   could be the variants `Ok(String)` and `Err(String)`
 // - change the body of the function to return `Ok(stuff)` where it currently
 //   returns `Some(stuff)`
